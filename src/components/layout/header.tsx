@@ -77,18 +77,17 @@ export function Header() {
 
           {/* Member Dashboard button */}
           <div className="ml-4">
-            <Button
-              variant="outline"
-              size="sm"
-              asChild
+            <Link
+              href="/dashboard"
               className={cn(
+                "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3",
                 isHomePage
                   ? "bg-white text-black border-gray-300 hover:bg-gray-100 hover:border-gray-400 shadow-lg"
                   : ""
               )}
             >
-              <Link href="/dashboard">Member Dashboard</Link>
-            </Button>
+              Member Dashboard
+            </Link>
           </div>
         </div>
       </nav>
@@ -134,9 +133,12 @@ export function Header() {
                 ))}
               </div>
               <div className="py-6">
-                <Button variant="outline" size="sm" className="w-full" asChild>
-                  <Link href="/dashboard">Member Dashboard</Link>
-                </Button>
+                <Link
+                  href="/dashboard"
+                  className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 w-full text-center"
+                >
+                  Member Dashboard
+                </Link>
               </div>
             </div>
           </div>

@@ -152,9 +152,12 @@ export default function ContactPage() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-gray-600 mb-4">{info.details}</p>
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={info.action}>{info.title}</a>
-                    </Button>
+                    <a
+                      href={info.action}
+                      className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3"
+                    >
+                      {info.title}
+                    </a>
                   </CardContent>
                 </Card>
               </motion.div>
