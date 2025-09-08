@@ -16,7 +16,7 @@ const resources = [
     difficulty: "beginner" as const,
     url: "#",
     tags: ["HTML", "CSS", "JavaScript", "React", "Node.js"],
-    author: "ACM Nexus Team",
+    author: "ACM Tula's Institute Team",
     publishedAt: "2025-01-01",
     downloads: 150
   },
@@ -94,7 +94,7 @@ const resources = [
     difficulty: "beginner" as const,
     url: "#",
     tags: ["Git", "Version Control", "GitHub", "Collaboration"],
-    author: "ACM Nexus Team",
+    author: "ACM Tula's Institute Team",
     publishedAt: "2025-01-08",
     downloads: 178
   },

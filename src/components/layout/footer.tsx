@@ -10,7 +10,7 @@ export function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <GraduationCap className="h-8 w-8 text-blue-400" />
-              <span className="text-2xl font-bold">ACM Nexus</span>
+              <span className="text-2xl font-bold">ACM Tula's Institute</span>
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
               Empowering the next generation of computing professionals through 
@@ -82,7 +82,7 @@ export function Footer() {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-gray-400 text-sm">
-              © 2025 ACM Nexus - Tula's Institute. All rights reserved.
+              © 2025 ACM Tula's Institute. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">

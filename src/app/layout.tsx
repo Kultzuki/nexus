@@ -10,12 +10,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ACM Nexus - Tula's Institute",
+  title: "ACM - Tula's Institute",
   description: "Empowering the next generation of computing professionals through education, innovation, and community at Tula's Institute.",
   keywords: ["ACM", "Computer Science", "Tula's Institute", "Student Chapter", "Programming", "Technology"],
-  authors: [{ name: "ACM Nexus Team" }],
+  authors: [{ name: "ACM Team" }],
   openGraph: {
-    title: "ACM Nexus - Tula's Institute",
+    title: "ACM Tula's Institute",
     description: "Empowering the next generation of computing professionals through education, innovation, and community.",
     type: "website",
   },

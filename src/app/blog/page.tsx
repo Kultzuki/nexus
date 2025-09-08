@@ -10,10 +10,10 @@ import { formatDate } from "@/lib/utils"
 const blogPosts = [
   {
     id: "1",
-    title: "Welcome to ACM Nexus - A New Era of Computing Education",
-    excerpt: "We're excited to announce the launch of ACM Nexus at Tula's Institute, bringing together students passionate about computing and technology.",
+    title: "Welcome to ACM Tula's Institute - A New Era of Computing Education",
+    excerpt: "We're excited to announce the launch of ACM Tula's Institute, bringing together students passionate about computing and technology.",
     content: "Full blog post content would go here...",
-    author: "ACM Nexus Team",
+    author: "ACM Tula's Institute Team",
     publishedAt: "2025-01-15",
     tags: ["Announcement", "Welcome", "Community"],
     image: "/api/placeholder/600/400",
@@ -113,7 +113,7 @@ export default function BlogPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="mt-6 text-lg leading-8 text-gray-600 sm:text-xl"
             >
-              Stay updated with the latest news, insights, and stories from the ACM Nexus community.
+              Stay updated with the latest news, insights, and stories from the ACM Tula's Institute community.
             </motion.p>
           </div>
         </div>
@@ -285,7 +285,7 @@ export default function BlogPage() {
               Stay Updated
             </h2>
             <p className="mt-4 text-lg text-blue-100">
-              Subscribe to our newsletter and never miss an update from ACM Nexus.
+              Subscribe to our newsletter and never miss an update from ACM Tula's Institute.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input

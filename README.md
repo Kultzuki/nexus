@@ -1,4 +1,4 @@
-# ACM Nexus - Tula's Institute Student Chapter Website
+# ACM Tula's Institute - Student Chapter Website
 
 A modern, responsive website for the ACM Student Chapter at Tula's Institute, built with Next.js and inspired by the Sundown Studio design aesthetic.
 
@@ -208,7 +208,7 @@ This project is created for educational purposes as part of the Tula's Webathon 
 
 ## 👥 Team
 
-Created by the ACM Nexus development team for Tula's Institute.
+Created by the ACM Tula's Institute development team.
 
 ---
 

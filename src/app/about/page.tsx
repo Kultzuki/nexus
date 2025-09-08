@@ -67,7 +67,7 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
               className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
             >
-              About ACM Nexus
+              About ACM Tula's Institute
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -131,7 +131,7 @@ export default function AboutPage() {
               Our Core Values
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              The principles that guide everything we do at ACM Nexus
+              The principles that guide everything we do at ACM Tula's Institute
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -268,7 +268,7 @@ export default function AboutPage() {
               Meet Our Team
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              The dedicated individuals who make ACM Nexus possible
+              The dedicated individuals who make ACM Tula's Institute possible
             </p>
           </div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -307,7 +307,7 @@ export default function AboutPage() {
               Ready to Join Our Community?
             </h2>
             <p className="mt-4 text-lg text-blue-100">
-              Become part of ACM Nexus and unlock your potential in computing and technology.
+              Become part of ACM Tula's Institute and unlock your potential in computing and technology.
             </p>
             <div className="mt-8 flex items-center justify-center gap-x-6">
               <a

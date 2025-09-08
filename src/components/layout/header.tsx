@@ -22,27 +22,24 @@ export function Header() {
   const isHomePage = pathname === "/"
 
   return (
-    <header className={cn(
-      "fixed top-0 w-full z-50 transition-all duration-300",
-      isHomePage 
-        ? "bg-black/10 backdrop-blur-md border-b border-white/20 shadow-lg" 
-        : "bg-white/95 backdrop-blur-sm border-b border-gray-200"
-    )}>
-      <nav className="mx-auto flex max-w-7xl items-center p-6 lg:px-8" aria-label="Global">
+    <header className="fixed top-0 w-full z-50 transition-all duration-300 pt-2">
+      <nav className={cn(
+        "mx-auto flex max-w-6xl items-center px-6 lg:px-8 rounded-2xl transition-all duration-300",
+        isHomePage
+          ? "bg-black/60 backdrop-blur-lg shadow-xl"
+          : "bg-black/60 backdrop-blur-lg border border-white/20 shadow-xl"
+      )} aria-label="Global">
         {/* Logo - Left side */}
         <div className="flex-shrink-0">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
-            <GraduationCap className={cn(
-              "h-8 w-8",
-              isHomePage ? "text-black" : "text-blue-600"
-            )} />
-            <span className={cn(
-              "text-xl font-bold",
-              isHomePage ? "text-black" : "text-gray-900"
-            )}>ACM Nexus</span>
+          <Link href="/" className="flex items-center">
+            <img
+              src="/ACM_LOGO.png"
+              alt="ACM Logo"
+              className="h-20 w-20 object-contain"
+            />
           </Link>
         </div>
-        
+
         {/* Mobile menu button */}
         <div className="flex lg:hidden ml-auto">
           <button
@@ -54,10 +51,10 @@ export function Header() {
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
-            <Menu className="h-6 w-6" aria-hidden="true" />
+            <Menu className="h-6 w-6 text-white" aria-hidden="true" />
           </button>
         </div>
-        
+
         {/* Desktop navigation - Right side with space */}
         <div className="hidden lg:flex lg:items-center lg:ml-auto lg:space-x-8">
           {/* Navigation links */}
@@ -67,26 +64,26 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "text-sm font-semibold leading-6 transition-colors",
-                  isHomePage 
-                    ? "text-black hover:text-gray-600" 
-                    : "text-gray-900 hover:text-blue-600"
+                  "text-sm font-semibold leading-6 transition-all duration-300 ease-in-out px-2 py-1 relative",
+                  pathname === item.href
+                    ? "text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-white after:rounded-full"
+                    : "text-white hover:text-gray-300"
                 )}
               >
                 {item.name}
               </Link>
             ))}
           </div>
-          
+
           {/* Member Dashboard button */}
           <div className="ml-4">
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               asChild
               className={cn(
-                isHomePage 
-                  ? "bg-white text-black border-gray-300 hover:bg-gray-100 hover:border-gray-400 shadow-lg" 
+                isHomePage
+                  ? "bg-white text-black border-gray-300 hover:bg-gray-100 hover:border-gray-400 shadow-lg"
                   : ""
               )}
             >
@@ -95,15 +92,18 @@ export function Header() {
           </div>
         </div>
       </nav>
-      
+
       {/* Mobile menu */}
       <div className={cn("lg:hidden", mobileMenuOpen ? "block" : "hidden")}>
         <div className="fixed inset-0 z-50" />
         <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5 flex items-center space-x-2">
-              <GraduationCap className="h-8 w-8 text-blue-600" />
-              <span className="text-xl font-bold text-gray-900">ACM Nexus</span>
+            <Link href="/" className="flex items-center">
+              <img
+                src="/ACM_LOGO.png"
+                alt="ACM Logo"
+                className="h-16 w-16 object-contain"
+              />
             </Link>
             <button
               type="button"
@@ -121,7 +121,12 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    className={cn(
+                      "-mx-3 block px-3 py-2 text-base font-semibold leading-7 transition-all duration-300 ease-in-out relative",
+                      pathname === item.href
+                        ? "text-blue-600 after:absolute after:bottom-0 after:left-3 after:right-3 after:h-0.5 after:bg-blue-600 after:rounded-full"
+                        : "text-gray-900 hover:text-blue-600"
+                    )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}

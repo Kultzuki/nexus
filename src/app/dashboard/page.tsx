@@ -112,7 +112,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}!</h1>
-              <p className="text-gray-600">Here's your ACM Nexus dashboard</p>
+              <p className="text-gray-600">Here's your ACM Tula's Institute dashboard</p>
             </div>
             <div className="text-right">
               <div className="text-2xl font-bold text-blue-600">{user.points} points</div>

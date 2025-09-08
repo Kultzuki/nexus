@@ -124,7 +124,7 @@ export default function ContactPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="mt-6 text-lg leading-8 text-gray-600 sm:text-xl"
             >
-              Have questions about ACM Nexus? Want to join our community? 
+              Have questions about ACM Tula's Institute? Want to join our community? 
               We'd love to hear from you!
             </motion.p>
           </div>
@@ -319,7 +319,7 @@ export default function ContactPage() {
               Frequently Asked Questions
             </h2>
             <p className="mt-4 text-lg text-gray-600">
-              Quick answers to common questions about ACM Nexus
+              Quick answers to common questions about ACM Tula's Institute
             </p>
           </div>
 
@@ -332,7 +332,7 @@ export default function ContactPage() {
                 className="bg-gray-50 p-6 rounded-lg"
               >
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                  How do I join ACM Nexus?
+                  How do I join ACM Tula's Institute?
                 </h3>
                 <p className="text-gray-600">
                   You can join by attending our events, filling out the membership form on our website, 
@@ -350,7 +350,7 @@ export default function ContactPage() {
                   Are there any membership fees?
                 </h3>
                 <p className="text-gray-600">
-                  No, membership to ACM Nexus is completely free for all Tula's Institute students. 
+                  No, membership to ACM Tula's Institute is completely free for all Tula's Institute students. 
                   We believe in making computing education accessible to everyone.
                 </p>
               </motion.div>
@@ -401,7 +401,7 @@ export default function ContactPage() {
             </p>
             <div className="mt-8 flex items-center justify-center gap-x-6">
               <Button size="lg" variant="secondary" className="text-lg px-8 py-3">
-                Join ACM Nexus
+                Join ACM Tula's Institute
               </Button>
               <a
                 href="/events"
