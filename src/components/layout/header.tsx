@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils"
 const navigation = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
+  { name: "Our Team", href: "/team" },
   { name: "Events", href: "/events" },
   { name: "Resources", href: "/resources" },
   { name: "Blog", href: "/blog" },
@@ -75,10 +76,10 @@ export function Header() {
             ))}
           </div>
 
-          {/* Member Dashboard button */}
+          {/* Log In button */}
           <div className="ml-4">
             <Link
-              href="/dashboard"
+              href="/login"
               className={cn(
                 "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3",
                 isHomePage
@@ -86,7 +87,7 @@ export function Header() {
                   : ""
               )}
             >
-              Member Dashboard
+              Log In
             </Link>
           </div>
         </div>
@@ -134,10 +135,10 @@ export function Header() {
               </div>
               <div className="py-6">
                 <Link
-                  href="/dashboard"
+                  href="/login"
                   className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 w-full text-center"
                 >
-                  Member Dashboard
+                  Log In
                 </Link>
               </div>
             </div>

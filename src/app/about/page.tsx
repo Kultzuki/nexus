@@ -27,32 +27,6 @@ const values = [
   }
 ]
 
-const team = [
-  {
-    name: "Dr. Sarah Johnson",
-    role: "Faculty Advisor",
-    description: "Professor of Computer Science with 15+ years of experience in software engineering.",
-    image: "/api/placeholder/300/300"
-  },
-  {
-    name: "Alex Chen",
-    role: "President",
-    description: "Senior Computer Science student passionate about AI and machine learning.",
-    image: "/api/placeholder/300/300"
-  },
-  {
-    name: "Priya Sharma",
-    role: "Vice President",
-    description: "Software Engineering student with expertise in web development and UI/UX design.",
-    image: "/api/placeholder/300/300"
-  },
-  {
-    name: "Michael Rodriguez",
-    role: "Treasurer",
-    description: "Computer Science student focused on cybersecurity and data science.",
-    image: "/api/placeholder/300/300"
-  }
-]
 
 export default function AboutPage() {
   return (
@@ -260,44 +234,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center mb-16">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Meet Our Team
-            </h2>
-            <p className="mt-4 text-lg text-gray-600">
-              The dedicated individuals who make ACM Tula's Institute possible
-            </p>
-          </div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="text-center hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="mx-auto h-24 w-24 rounded-full bg-gray-200 mb-4 flex items-center justify-center">
-                      <Users className="h-12 w-12 text-gray-400" />
-                    </div>
-                    <CardTitle className="text-lg">{member.name}</CardTitle>
-                    <CardDescription className="font-semibold text-blue-600">
-                      {member.role}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-gray-600">{member.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Join Us CTA */}
       <section className="bg-blue-600 py-16">

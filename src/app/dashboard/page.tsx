@@ -1,9 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { User, Calendar, BookOpen, Trophy, Star, Award, Target, TrendingUp } from "lucide-react"
+import { User, Calendar, BookOpen, Trophy, Star, Award, Target, TrendingUp, LogOut } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { useAuth } from "@/contexts/AuthContext"
 
 const achievements = [
   {
@@ -92,13 +93,37 @@ const upcomingEvents = [
 ]
 
 export default function DashboardPage() {
-  const user = {
-    name: "John Doe",
-    email: "john.doe@tulas.edu.in",
-    memberSince: "2025-01-01",
-    level: 2,
-    points: 150,
-    nextLevelPoints: 200
+  const { user, logout, loading } = useAuth()
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Access Denied</h1>
+          <p className="text-gray-600 mb-4">Please log in to access your dashboard.</p>
+          <Button onClick={() => window.location.href = '/login'}>
+            Go to Login
+          </Button>
+        </div>
+      </div>
+    )
+  }
+
+  // Calculate progress for students
+  const progress = user.progress || {
+    coursesCompleted: 0,
+    totalCourses: 0,
+    assignmentsSubmitted: 0,
+    totalAssignments: 0,
+    currentGPA: 0
   }
 
   const unlockedAchievements = achievements.filter(a => a.unlocked)
@@ -111,12 +136,51 @@ export default function DashboardPage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}!</h1>
-              <p className="text-gray-600">Here's your ACM Tula's Institute dashboard</p>
+              <h1 className="text-3xl font-bold text-gray-900">
+                Welcome back, {user.name}!
+              </h1>
+              <p className="text-gray-600">
+                {user.role === 'student' && "Here's your academic progress and activities"}
+                {user.role === 'faculty' && "Manage your courses and students"}
+                {user.role === 'coreteam' && "Administrative dashboard for ACM Tula's Institute"}
+              </p>
             </div>
-            <div className="text-right">
-              <div className="text-2xl font-bold text-blue-600">{user.points} points</div>
-              <div className="text-sm text-gray-600">Level {user.level}</div>
+            <div className="flex items-center space-x-4">
+              <div className="text-right">
+                {user.role === 'student' && (
+                  <>
+                    <div className="text-2xl font-bold text-blue-600">
+                      {progress.coursesCompleted}/{progress.totalCourses} Courses
+                    </div>
+                    <div className="text-sm text-gray-600">GPA: {progress.currentGPA}</div>
+                  </>
+                )}
+                {user.role === 'faculty' && (
+                  <>
+                    <div className="text-2xl font-bold text-green-600">
+                      {user.courses?.length || 0} Courses
+                    </div>
+                    <div className="text-sm text-gray-600">{user.students || 0} Students</div>
+                  </>
+                )}
+                {user.role === 'coreteam' && (
+                  <>
+                    <div className="text-2xl font-bold text-purple-600">
+                      {user.position || 'Core Team'}
+                    </div>
+                    <div className="text-sm text-gray-600">Administrator</div>
+                  </>
+                )}
+              </div>
+              <Button
+                onClick={logout}
+                variant="outline"
+                size="sm"
+                className="flex items-center space-x-2"
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Logout</span>
+              </Button>
             </div>
           </div>
         </div>
@@ -128,56 +192,170 @@ export default function DashboardPage() {
           <div className="lg:col-span-2 space-y-8">
             {/* Stats Cards */}
             <div className="grid gap-6 md:grid-cols-3">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Events Attended</CardTitle>
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">8</div>
-                    <p className="text-xs text-muted-foreground">+2 from last month</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+              {user.role === 'student' && (
+                <>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Courses Completed</CardTitle>
+                        <BookOpen className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{progress.coursesCompleted}</div>
+                        <p className="text-xs text-muted-foreground">out of {progress.totalCourses}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Resources Downloaded</CardTitle>
-                    <BookOpen className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">12</div>
-                    <p className="text-xs text-muted-foreground">+5 from last month</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Assignments Submitted</CardTitle>
+                        <Trophy className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{progress.assignmentsSubmitted}</div>
+                        <p className="text-xs text-muted-foreground">out of {progress.totalAssignments}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Achievements</CardTitle>
-                    <Trophy className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">{unlockedAchievements.length}</div>
-                    <p className="text-xs text-muted-foreground">out of {achievements.length}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Current GPA</CardTitle>
+                        <Star className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{progress.currentGPA}</div>
+                        <p className="text-xs text-muted-foreground">out of 4.0</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </>
+              )}
+
+              {user.role === 'faculty' && (
+                <>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Active Courses</CardTitle>
+                        <BookOpen className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{user.courses?.length || 0}</div>
+                        <p className="text-xs text-muted-foreground">This semester</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Total Students</CardTitle>
+                        <User className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{user.students || 0}</div>
+                        <p className="text-xs text-muted-foreground">Across all courses</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Department</CardTitle>
+                        <Trophy className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{user.department || 'CS'}</div>
+                        <p className="text-xs text-muted-foreground">Computer Science</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </>
+              )}
+
+              {user.role === 'coreteam' && (
+                <>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Position</CardTitle>
+                        <Trophy className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{user.position || 'Member'}</div>
+                        <p className="text-xs text-muted-foreground">Core Team</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                  >
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">Permissions</CardTitle>
+                        <Star className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">{user.permissions?.length || 0}</div>
+                        <p className="text-xs text-muted-foreground">Admin access</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    <Card>
+                      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        <CardTitle className="text-sm font-medium">System Status</CardTitle>
+                        <Target className="h-4 w-4 text-muted-foreground" />
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold text-green-600">Active</div>
+                        <p className="text-xs text-muted-foreground">All systems operational</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </>
+              )}
             </div>
 
             {/* Recent Activity */}

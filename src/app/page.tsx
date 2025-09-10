@@ -1,7 +1,9 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, Users, Calendar, BookOpen, Code, Trophy, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -49,6 +51,99 @@ const stats = [
   { label: "Projects Completed", value: "50+", icon: Code },
 ]
 
+const quotes = [
+  {
+    text: "The computer was born to solve problems that did not exist before.",
+    author: "Bill Gates"
+  },
+  {
+    text: "Innovation distinguishes between a leader and a follower.",
+    author: "Steve Jobs"
+  },
+  {
+    text: "The best way to predict the future is to invent it.",
+    author: "Alan Kay"
+  },
+  {
+    text: "Code is like humor. When you have to explain it, it's bad.",
+    author: "Cory House"
+  },
+  {
+    text: "First, solve the problem. Then, write the code.",
+    author: "John Johnson"
+  }
+]
+
+function DynamicQuotes() {
+  const [currentQuote, setCurrentQuote] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentQuote((prev) => (prev + 1) % quotes.length)
+    }, 4000) // Change quote every 4 seconds
+
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="relative h-80 flex items-center justify-center">
+      <motion.div
+        key={currentQuote}
+        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: -50, scale: 0.9 }}
+        transition={{ 
+          duration: 0.8,
+          ease: "easeInOut"
+        }}
+        className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 w-full max-w-3xl"
+      >
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-6xl text-blue-600 mb-4"
+        >
+          "
+        </motion.div>
+        <motion.blockquote
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-xl text-gray-700 italic leading-relaxed"
+        >
+          {quotes[currentQuote].text}
+        </motion.blockquote>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-4 text-gray-600 font-semibold"
+        >
+          — {quotes[currentQuote].author}
+        </motion.div>
+      </motion.div>
+
+      {/* Quote indicators */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+        {quotes.map((_, index) => (
+          <motion.button
+            key={index}
+            onClick={() => setCurrentQuote(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              index === currentQuote 
+                ? 'bg-blue-600 scale-125' 
+                : 'bg-gray-300 hover:bg-gray-400'
+            }`}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function HomePage() {
   return (
     <div className="w-full min-h-screen">
@@ -62,16 +157,19 @@ export default function HomePage() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover"
           onError={(e) => {
             console.log('Video failed to load:', e);
             (e.currentTarget as HTMLVideoElement).style.display = 'none'
           }}
+          onLoadStart={() => console.log('Video started loading')}
+          onCanPlay={() => console.log('Video can start playing')}
         >
           <source src="/bg_video_acm.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+
         {/* Subtle overlay for readability */}
         <div className="absolute inset-0 bg-black/15"></div>
       </div>
@@ -81,7 +179,7 @@ export default function HomePage() {
         {/* Content with higher z-index */}
         <div className="relative z-30 mx-auto max-w-7xl px-6 lg:px-8 w-full">
           <div className="mx-auto max-w-4xl text-center">
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ 
@@ -90,11 +188,23 @@ export default function HomePage() {
                 type: "spring",
                 stiffness: 100 
               }}
-              className="text-5xl font-bold tracking-tight text-white sm:text-7xl lg:text-8xl leading-none drop-shadow-2xl"
-              style={{ fontFamily: 'Mont, sans-serif' }}
+              className="flex items-center justify-center gap-6 flex-wrap"
             >
-              ACM<br />Tula's Institute
-            </motion.h1>
+              <Image
+                src="/acm_image.png"
+                alt="ACM"
+                width={120}
+                height={120}
+                className="drop-shadow-2xl"
+                priority
+              />
+              <h1
+                className="text-5xl font-bold tracking-tight text-white sm:text-7xl lg:text-8xl leading-none drop-shadow-2xl"
+                style={{ fontFamily: 'Mont, sans-serif' }}
+              >
+                Tula's Institute
+              </h1>
+            </motion.div>
             <motion.p
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -107,9 +217,25 @@ export default function HomePage() {
               }}
               className="mt-8 text-xl leading-8 text-white sm:text-2xl lg:text-3xl max-w-3xl mx-auto drop-shadow-lg"
             >
-              Empowering the next generation of computing professionals through 
-              education, innovation, and community.
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+                className="inline-block"
+              >
+                Empowering the next generation of computing professionals through
+              </motion.span>
+              <br />
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2, duration: 0.8 }}
+                className="inline-block"
+              >
+                education, innovation, and community.
+              </motion.span>
             </motion.p>
+
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
@@ -289,6 +415,25 @@ export default function HomePage() {
                 </motion.div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Dynamic Animated Quotes Section */}
+        <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="mx-auto max-w-4xl text-center"
+            >
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl mb-16">
+                Inspiring Words
+              </h2>
+              
+              <DynamicQuotes />
+            </motion.div>
           </div>
         </section>
 
