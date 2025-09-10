@@ -9,6 +9,10 @@ interface User {
   email: string
   role: 'student' | 'faculty' | 'coreteam'
   password: string
+  memberSince: string
+  level?: number
+  points?: number
+  nextLevelPoints?: number
   progress?: {
     coursesCompleted: number
     totalCourses: number
@@ -41,6 +45,10 @@ const mockUsers: User[] = [
     email: 'john.doe@tulas.edu',
     password: 'password123',
     role: 'student',
+    memberSince: '2024-09-01',
+    level: 2,
+    points: 150,
+    nextLevelPoints: 200,
     progress: {
       coursesCompleted: 8,
       totalCourses: 12,
@@ -55,6 +63,7 @@ const mockUsers: User[] = [
     email: 'sarah.johnson@tulas.edu',
     password: 'faculty123',
     role: 'faculty',
+    memberSince: '2020-08-15',
     department: 'Computer Science',
     courses: ['Data Structures', 'Algorithms', 'Database Systems'],
     students: 45
@@ -65,6 +74,7 @@ const mockUsers: User[] = [
     email: 'alex.chen@tulas.edu',
     password: 'admin123',
     role: 'coreteam',
+    memberSince: '2024-01-15',
     position: 'President',
     permissions: ['manage_events', 'manage_users', 'view_analytics']
   },
@@ -74,6 +84,10 @@ const mockUsers: User[] = [
     email: 'priya.sharma@tulas.edu',
     password: 'student123',
     role: 'student',
+    memberSince: '2024-08-20',
+    level: 1,
+    points: 85,
+    nextLevelPoints: 100,
     progress: {
       coursesCompleted: 6,
       totalCourses: 10,
@@ -143,6 +157,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       email: userData.email,
       password: userData.password,
       role: 'student',
+      memberSince: new Date().toISOString().split('T')[0], // Today's date
+      level: 1,
+      points: 0,
+      nextLevelPoints: 100,
       progress: {
         coursesCompleted: 0,
         totalCourses: 0,
