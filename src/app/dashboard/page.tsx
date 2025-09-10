@@ -1,10 +1,10 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { User, Calendar, BookOpen, Trophy, Star, Award, Target, TrendingUp, LogOut } from "lucide-react"
+import { User as UserIcon, Calendar, BookOpen, Trophy, Star, Award, Target, TrendingUp, LogOut } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { useAuth } from "@/contexts/AuthContext"
+import { useAuth, User } from "@/contexts/AuthContext"
 
 const achievements = [
   {
@@ -436,7 +436,7 @@ export default function DashboardPage() {
                 <CardHeader>
                   <div className="flex items-center space-x-4">
                     <div className="h-16 w-16 bg-blue-100 rounded-full flex items-center justify-center">
-                      <User className="h-8 w-8 text-blue-600" />
+                      <UserIcon className="h-8 w-8 text-blue-600" />
                     </div>
                     <div>
                       <CardTitle className="text-lg">{user.name}</CardTitle>
@@ -448,24 +448,30 @@ export default function DashboardPage() {
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
                       <span>Member since</span>
-                      <span className="font-medium">{new Date(user.memberSince).toLocaleDateString()}</span>
+                      <span className="font-medium">
+                        {user.memberSince ? new Date(user.memberSince).toLocaleDateString() : 'N/A'}
+                      </span>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span>Current Level</span>
-                      <span className="font-medium">{user.level}</span>
-                    </div>
-                    <div className="space-y-2">
+                    {user.level && (
                       <div className="flex justify-between text-sm">
-                        <span>Progress to Level {user.level + 1}</span>
-                        <span className="font-medium">{user.points}/{user.nextLevelPoints}</span>
+                        <span>Current Level</span>
+                        <span className="font-medium">{user.level}</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div 
-                          className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${(user.points / user.nextLevelPoints) * 100}%` }}
-                        ></div>
+                    )}
+                    {user.level && user.points !== undefined && user.nextLevelPoints && (
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span>Progress to Level {user.level + 1}</span>
+                          <span className="font-medium">{user.points}/{user.nextLevelPoints}</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                          <div 
+                            className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                            style={{ width: `${(user.points / user.nextLevelPoints) * 100}%` }}
+                          ></div>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
