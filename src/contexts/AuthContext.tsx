@@ -2,30 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
-
-export interface User {
-  id: string
-  name: string
-  email: string
-  role: 'student' | 'faculty' | 'coreteam'
-  password: string
-  memberSince: string
-  level?: number
-  points?: number
-  nextLevelPoints?: number
-  progress?: {
-    coursesCompleted: number
-    totalCourses: number
-    assignmentsSubmitted: number
-    totalAssignments: number
-    currentGPA: number
-  }
-  courses?: string[]
-  students?: number
-  department?: string
-  position?: string
-  permissions?: string[]
-}
+import { User } from '@/types'
 
 interface AuthContextType {
   user: User | null

@@ -4,7 +4,31 @@ import { motion } from "framer-motion"
 import { User as UserIcon, Calendar, BookOpen, Trophy, Star, Award, Target, TrendingUp, LogOut } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { useAuth, User } from "@/contexts/AuthContext"
+import { useAuth } from "@/contexts/AuthContext"
+
+interface UserType {
+  id: string
+  name: string
+  email: string
+  role: 'student' | 'faculty' | 'coreteam'
+  password: string
+  memberSince: string
+  level?: number
+  points?: number
+  nextLevelPoints?: number
+  progress?: {
+    coursesCompleted: number
+    totalCourses: number
+    assignmentsSubmitted: number
+    totalAssignments: number
+    currentGPA: number
+  }
+  courses?: string[]
+  students?: number
+  department?: string
+  position?: string
+  permissions?: string[]
+}
 
 const achievements = [
   {
@@ -274,7 +298,7 @@ export default function DashboardPage() {
                     <Card>
                       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-                        <User className="h-4 w-4 text-muted-foreground" />
+                        <UserIcon className="h-4 w-4 text-muted-foreground" />
                       </CardHeader>
                       <CardContent>
                         <div className="text-2xl font-bold">{user.students || 0}</div>
@@ -449,7 +473,7 @@ export default function DashboardPage() {
                     <div className="flex justify-between text-sm">
                       <span>Member since</span>
                       <span className="font-medium">
-                        {user.memberSince ? new Date(user.memberSince).toLocaleDateString() : 'N/A'}
+                        {new Date((user as any).memberSince).toLocaleDateString()}
                       </span>
                     </div>
                     {user.level && (

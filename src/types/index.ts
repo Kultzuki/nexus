@@ -65,3 +65,27 @@ export interface ContactForm {
   message: string
   type: 'general' | 'membership' | 'event' | 'partnership'
 }
+
+export interface User {
+  id: string
+  name: string
+  email: string
+  role: 'student' | 'faculty' | 'coreteam'
+  password: string
+  memberSince: string
+  level?: number
+  points?: number
+  nextLevelPoints?: number
+  progress?: {
+    coursesCompleted: number
+    totalCourses: number
+    assignmentsSubmitted: number
+    totalAssignments: number
+    currentGPA: number
+  }
+  courses?: string[]
+  students?: number
+  department?: string
+  position?: string
+  permissions?: string[]
+}
